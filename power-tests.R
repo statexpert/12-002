@@ -13,6 +13,7 @@ sample.size.anova <- function(groups, n = NULL, f, sig = 0.05, b = 0.8) {
   size <- round(fit$n)*groups
 }
 
+# Сводные данные по расчёту объёма выборки для ANOVA
 ssa <- matrix(mapply(FUN = sample.size.anova, f = rep(f, 2), sig = sig, groups = groups), ncol = 2)
 rownames(ssa) <- f
 colnames(ssa) <- sig
@@ -25,6 +26,7 @@ sample.size.manova <- function(subgroups, v = NULL, f2, sig = 0.05, b = 0.8) {
   size <- round(fit$v) + 1
 }
 
+# Сводные данные по расчёту объёма выборки для MANOVA
 ssm <- matrix(mapply(FUN = sample.size.manova, f2 = rep(f2, ), sig = sig, subgroups = subgroups), ncol = 2)
 rownames(ssm) <- f2
 colnames(ssm) <- sig
