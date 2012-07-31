@@ -25,8 +25,15 @@ colnames(tab) <- rep(f,2)
 rownames(tab) <- size
 colors <- rainbow(length(f)*length(sig))
 
-# par(mar=c(4, 4, 4, 2), xpd=TRUE)
-matplot(size, tab, type = "l", lty = 1, col = colors, xlab = "Размер выборки", ylab = "Мощность")
-abline(h = 0.8, lty = "longdash")
+par(mar=c(5, 4, 4, 2) + 0.1, xpd = FALSE)
+par(mar=c(5, 4, 4, 8))
+#par(xpd=NA,oma=c(0,0,0,0))
+#par(mar=c(5, 4, 4, 8))
+
+matplot(size, tab, type = "l", lty = 1, col = colors, xlab = "Размер выборки", ylab = "Мощность", xlim = range(size), ylim = c(0, 1),  xaxs = "i", yaxs = "i")
+
+abline(h = 0.8, lty = "longdash", xpd = FALSE)
 title(main = "График зависимости мощности\n от размера выборки, размера эффекта\n и уровня значимости")
-legend("topright", legend = c("α=0.05; f=0.1", "α=0.05; f=0.25", "α=0.05; f=0.4", "α=0.01; f=0.1", "α=0.01; f=0.25", "α=0.04; f=0.1"), col = colors, lwd = 1, lty = 1, bty = "n")
+
+legend(par()$usr[2], mean(par()$usr[3:4]), inset = c(-0.8, 0), legend = c("α=0.05; f=0.1", "α=0.05; f=0.25", "α=0.05; f=0.4", "α=0.01; f=0.1", "α=0.01; f=0.25", "α=0.04; f=0.1"), col = colors, lwd = 1, lty = 1, bty = "n", xpd = TRUE, xjust=0, yjust=0.5)
+par(mar=c(5, 4, 4, 2) + 0.1, xpd=FALSE)
