@@ -2,6 +2,7 @@ library("pwr")
 
 f <- c(0.1, 0.25, 0.4) # размеры эффекта для ANOVA
 f2 <- c(0.02, 0.15, 0.35) # размеры эффекта для MANOVA
+d <- c(0.2, 0.5, 0.8)
 sig <- c(0.05, 0.01) # уровни значимости
 groups <- 3
 subgroups <- 54
@@ -42,3 +43,14 @@ power.test.anova <- sample.size.anova <- function(groups, n, f, sig = 0.05) {
 ssaf <- matrix(mapply(FUN = sample.size.anova, f = rep(f, 2), sig = sig, groups = groups, n = 60), ncol = 2)
 rownames(ssaf) <- f
 colnames(ssaf) <- sig
+
+# Функция расчитывает объём выборки для зависимых выборок
+# Вовзращает число пар
+sample.size.paired <- function(n = NULL, d, sig = 0.05, b = 0.8) {
+  fit <- pwr.t.test(n = NULL, d = d, sig.level = sig, power = b, type = "paired")
+  size <- round(fit$n)
+}
+
+ssp <- matrix(mapply(FUN = sample.size.paired, d = rep(d, 2), sig = sig), ncol = 2)
+rownames(ssp) <- d
+colnames(ssp) <- sig
