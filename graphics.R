@@ -25,7 +25,7 @@ rownames(tab.size) <- size
 # График зависимости мощности\n от размера выборки, размера эффекта\n и уровня значимости на основании tab и size
 colors <- rainbow(length(f)*length(sig))
 par(mar=c(8, 4, 4, 2) + 0.1, xpd = TRUE)
-matplot(size, tab.size, lwd = 1, lty = 1, col = colors, xlab = "Размер выборки", ylab = "Мощность", xlim = c(25, max(size)), ylim = c(0, 1), xaxs = "i", yaxs = "r", xaxt = "n")
+matplot(size, tab.size, type = "l", lwd = 2, lty = 1, col = colors, xlab = "Размер выборки", ylab = "Мощность", xlim = c(0, max(size)), ylim = c(0, 1), xaxs = "i", yaxs = "r", xaxt = "n")
 axis(1, at= seq(0, 400, by = 25))
 abline(h = 0.8, lty = "longdash", lwd = 0.5, xpd = FALSE)
 title(main = "График зависимости мощности\n от размера выборки, размера эффекта\n и уровня значимости")
@@ -49,7 +49,7 @@ colnames(tab.power) <- sig
 # График зависимости мозности от размера эффекта и уровня значимости для выборки в 60 человек
 colors <- rainbow(length(sig))
 par(mar=c(6, 4, 4, 2) + 0.1, xpd = TRUE)
-matplot(f, tab.power, lty = 1, col = colors, xlab = "Размер эффекта", ylab = "Мощность")
+matplot(f, tab.power, type = "l", lwd = 2, lty = 1, col = colors, xlab = "Размер эффекта", ylab = "Мощность")
 abline(h = 0.8, lty = "longdash", lwd = 0.5, xpd = FALSE)
 title(main = "График зависимости мощности\nот размера эффекта (n=60)")
 legend(0, -0.4, legend = c("p=0.05", "p=0.01"), col = colors, lwd = 1, lty = 1, bty = "n", xpd = TRUE, xjust=0, yjust=0.5, ncol = 2)
@@ -80,7 +80,7 @@ rownames(tab.size.p) <- size
 # График зависимости мощности от размеры выборки, размеры эффекта и уровня значимости для зависимых выборок
 colors <- rainbow(length(d)*length(sig))
 par(mar=c(8, 4, 4, 2) + 0.1, xpd = TRUE)
-matplot(size, tab.size.p, lwd = 1, lty = 1, col = colors, xlab = "Размер выборки", ylab = "Мощность", xlim = c(10, max(size)), ylim = c(0, 1),  xaxs = "r", yaxs = "r", xaxt = "n")
+matplot(size, tab.size.p, type = "l", lwd = 2, lty = 1, col = colors, xlab = "Размер выборки", ylab = "Мощность", xlim = c(10, max(size)), ylim = c(0, 1),  xaxs = "r", yaxs = "r", xaxt = "n")
 axis(1, at= seq(0, 400, by = 25))
 abline(h = 0.8, lty = "longdash", lwd = 0.5, xpd = FALSE)
 title(main = "График зависимости мощности\n от размера выборки, размера эффекта\n и уровня значимости")
