@@ -88,5 +88,5 @@ legend(0, -0.6, legend = c("p=0.05; d=0.2", "p=0.05; d=0.5", "p=0.05; d=0.8", "p
 size.x <- c(14, 22, 33, 50, 198, 295)
 for (i in size.x) points(i, 0.8, pch = 20)
 for (i in size.x) abline(v = i, lty = "longdash", lwd = 0.5, xpd = FALSE)
-#for (i in size.x) text(i + 20, 0.03, labels = i)axi  
+#for (i in size.x) text(i + 20, 0.03, labels = i)
 par(mar=c(5, 4, 4, 2) + 0.1, xpd = FALSE)

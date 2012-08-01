@@ -26,7 +26,7 @@ sample.size.manova <- function(subgroups, v = NULL, f2, sig = 0.05, b = 0.8) {
   size <- round(fit$v) + 1
 }
 # Сводные данные по расчёту объёма выборки для MANOVA
-ssm <- matrix(mapply(FUN = sample.size.manova, f2 = rep(f2, ), sig = sig, subgroups = subgroups), ncol = 2)
+ssm <- matrix(mapply(FUN = sample.size.manova, f2 = rep(f2, 2), sig = sig, subgroups = subgroups), ncol = 2)
 rownames(ssm) <- f2
 colnames(ssm) <- sig
 
