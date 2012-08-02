@@ -1,5 +1,6 @@
 library("pwr")
-size <- seq(30, 400, 1)
+
+size <- seq(10, 400, 1)
 f <- c(0.1, 0.25, 0.4) # размеры эффекта для ANOVA
 sig <- c(0.05, 0.01) # уровни значимости
 groups <- 3
@@ -60,7 +61,7 @@ for (i in size.x) abline(v = i, lty = "longdash", lwd = 0.5, xpd = FALSE)
 par(mar=c(5, 4, 4, 2) + 0.1, xpd=FALSE)
 
 d <- c(0.2, 0.5, 0.8)
-size <- seq(20, 400, 1)
+size <- seq(10, 400, 1)
 power.test.paired <- function(n, d, sig = 0.05) {
   fit <- pwr.t.test(n = n, d = d, sig.level = sig, power = NULL, type = "paired")
   power <- fit$power
