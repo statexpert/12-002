@@ -1,5 +1,7 @@
 source("functions.R")
 
+opar <- par(no.readonly=TRUE)
+
 size <- seq(10, 400, 1)
 f <- c(0.1, 0.25, 0.4) # размеры эффекта для ANOVA
 sig <- c(0.05, 0.01) # уровни значимости
@@ -23,9 +25,9 @@ colors <- rainbow(length(f)*length(sig))
 # Задаём отсутпы
 par(mar=c(8, 4, 4, 2) + 0.1, xpd = TRUE)
 # Строим график по tab.size
-matplot(size, tab.size, type = "l", lwd = 2, lty = 1, col = colors, xlab = "Размер выборки", ylab = "Мощность", xlim = c(0, max(size)), ylim = c(0, 1), xaxs = "i", yaxs = "r", xaxt = "n")
+matplot(size, tab.size, type = "l", lwd = 2, lty = 1, col = colors, xlab = "Размер выборки", ylab = "Мощность", xlim = c(0, max(size)), ylim = c(0, 1), xaxs = "i", yaxs = "r", xaxt = "n", cex.axis = 0.8)
 # Добавляем ось x
-axis(1, at= seq(0, 400, by = 25))
+axis(1, at= seq(0, 400, by = 25), cex.axis = 0.8)
 # Добавляем пунктир на b=0.8
 abline(h = 0.8, lty = "longdash", lwd = 0.5, xpd = FALSE)
 # Добавляем заголовок
@@ -40,4 +42,4 @@ for (i in points) points(i, 0.8, pch = 20)
 # Добавляем пунктирные линии
 for (i in points) abline(v = i, lty = "longdash", lwd = 0.5, xpd = FALSE)
 #for (i in size.x) text(i + 20, 0.03, labels = i)
-par(mar=c(5, 4, 4, 2) + 0.1, xpd = FALSE)
+par(opar)
