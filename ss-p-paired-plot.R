@@ -7,16 +7,11 @@ d <- c(0.2, 0.5, 0.8)
 sig <- c(0.05, 0.01) # уровни значимости
 
   # Расчёт мощности для всех f и sig и внесение значений в столбцы матрицы tab
-tab.size.p <- NULL
-for (i in sig) {
-  for (j in d) {
-    b <- power.test.paired(d = j, sig = i, n = size)
-    tab.size.p <- cbind(tab.size.p, b)
-    rm(b)
-  }
-}
-colnames(tab.size.p) <- rep(d,2)
-rownames(tab.size.p) <- size
+
+tab.size.p <- matrix(
+  unlist(lapply(size, function(x) {
+    mapply(power.test.paired, n = x, d = d, sig = rep(sig, each=length(d)))
+  })), ncol=6, byrow=TRUE, dimnames=list(size, rep(d, 2)))
 
 # График зависимости мощности от размеры выборки, размеры эффекта и уровня значимости для зависимых выборок
 colors <- rainbow(length(d)*length(sig))
@@ -26,8 +21,8 @@ axis(1, at = seq(0, 400, by = 25), cex.axis = 0.8)
 abline(h = 0.8, lty = "longdash", lwd = 0.5, xpd = FALSE)
 title(main = "График зависимости мощности\n от размера выборки, размера эффекта\n и уровня значимости", xlab = "Размер выборки", ylab = "Мощность")
 legend(0, -0.6, legend = c("p=0.05; d=0.2", "p=0.05; d=0.5", "p=0.05; d=0.8", "p=0.01; d=0.2", "p=0.01; d=0.5", "p=0.01; d=0.8"), col = colors, lwd = 1, lty = 1, bty = "n", xpd = TRUE, xjust=0, yjust=0.5, ncol = 2)
-size.x <- c(14, 22, 33, 50, 198, 295)
-for (i in size.x) points(i, 0.8, pch = 20)
-abline(v = size.x, lty = "longdash", lwd = 0.5, xpd = FALSE)
-#for (i in size.x) text(i + 20, 0.03, labels = i)
+points <- c(14, 22, 33, 50, 198, 295)
+points(points, rep(0.8, length(points)), pch = 20)
+abline(v = points, lty = "longdash", lwd = 0.5, xpd = FALSE)
+text((points + 10), rep(0.03, length(points)), labels = points, cex=0.7)
 par(opar)

@@ -8,16 +8,10 @@ sig <- c(0.05, 0.01) # уровни значимости
 groups <- 3
 
 # Расчёт мощности для всех f и sig и внесение значений в столбцы матрицы tab
-tab.size <- NULL
-for (i in sig) {
-  for (j in f) {
-    b <- power.test.anova(f = j, sig = i, groups = groups, n = size)
-    tab.size <- cbind(tab.size, b)
-    rm(b)
-  }
-}
-colnames(tab.size) <- rep(f,2)
-rownames(tab.size) <- size
+tab.size <- matrix(
+  unlist(lapply(size, function(x) {
+    mapply(power.test.anova, n = x, f = f, sig = rep(sig, each=length(f)), groups = groups)
+    })), ncol=6, byrow=TRUE, dimnames=list(size, rep(f, 2)))
 
 ## График зависимости мощности\n от размера выборки, размера эффекта\n и уровня значимости на основании tab и size
 # Задаём цвета
@@ -33,13 +27,13 @@ abline(h = 0.8, lty = "longdash", lwd = 0.5, xpd = FALSE)
 # Добавляем заголовок
 title(main = "График зависимости мощности\n от размера выборки, размера эффекта\n и уровня значимости", xlab = "Размер выборки", ylab = "Мощность")
 # Добавляем легенду
-legend(0, -0.6, legend = c("p=0.05; f=0.1", "p=0.05; f=0.25", "p=0.05; f=0.4", "p=0.01; f=0.1", "p=0.01; f=0.25", "p=0.01; f=0.4"), col = colors, lwd = 1, lty = 1, bty = "n", xpd = TRUE, xjust=0, yjust=0.5, ncol = 2)
+legend("bottom", inset=c(0, -0.7), legend = c("p=0.05; f=0.1", "p=0.05; f=0.25", "p=0.05; f=0.4", "p=0.01; f=0.1", "p=0.01; f=0.25", "p=0.01; f=0.4"), col = colors, lwd = 1, lty = 1, bty = "n", xpd = TRUE, xjust=0, yjust=0.5, ncol = 2)
 
 # Вычисляем точки пересечения кривых с пунктиром (b=0.8)
 points <- sort(mapply(FUN = sample.size.anova, f = rep(f, 2), sig = sig, groups = groups))
 # Добавляем точки
-for (i in points) points(i, 0.8, pch = 20)
+points(points, rep(0.8, length(points)), pch = 20)
 # Добавляем пунктирные линии
 abline(v = points, lty = "longdash", lwd = 0.5, xpd = FALSE)
-#for (i in size.x) text(i + 20, 0.03, labels = i)
+text((points + 10), rep(0.03, length(points)), labels = points, cex=0.7)
 par(opar)
